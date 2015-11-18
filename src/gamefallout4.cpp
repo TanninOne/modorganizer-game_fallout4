@@ -23,7 +23,6 @@ bool GameFallout4::init(IOrganizer *moInfo)
   }
   m_ScriptExtender = std::shared_ptr<ScriptExtender>(new Fallout4ScriptExtender());
   m_DataArchives = std::shared_ptr<DataArchives>(new Fallout4DataArchives());
-  m_BSAInvalidation = std::shared_ptr<BSAInvalidation>(new Fallout4BSAInvalidation(m_DataArchives, moInfo));
   return true;
 }
 
@@ -115,13 +114,13 @@ void GameFallout4::initializeProfile(const QDir &path, ProfileSettings settings)
 
   if (settings.testFlag(IPluginGame::CONFIGURATION)) {
     if (settings.testFlag(IPluginGame::PREFER_DEFAULTS)
-        || !QFileInfo(myGamesPath() + "/fallout.ini").exists()) {
-      copyToProfile(gameDirectory().absolutePath(), path, "fallout_default.ini", "fallout.ini");
+        || !QFileInfo(myGamesPath() + "/fallout4.ini").exists()) {
+      copyToProfile(gameDirectory().absolutePath(), path, "fallout4_default.ini", "fallout4.ini");
     } else {
-      copyToProfile(myGamesPath(), path, "fallout.ini");
+      copyToProfile(myGamesPath(), path, "fallout4.ini");
     }
 
-    copyToProfile(myGamesPath(), path, "falloutprefs.ini");
+    copyToProfile(myGamesPath(), path, "fallout4prefs.ini");
   }
 }
 
@@ -148,7 +147,6 @@ QIcon GameFallout4::gameIcon() const
 const std::map<std::type_index, boost::any> &GameFallout4::featureList() const
 {
   static std::map<std::type_index, boost::any> result {
-    { typeid(BSAInvalidation), m_BSAInvalidation.get() },
     { typeid(ScriptExtender), m_ScriptExtender.get() },
     { typeid(DataArchives), m_DataArchives.get() }
   };

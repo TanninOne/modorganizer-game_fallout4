@@ -2,7 +2,6 @@
 #define GAMEFALLOUT4_H
 
 
-#include "fallout4bsainvalidation.h"
 #include "fallout4scriptextender.h"
 #include "fallout4dataarchives.h"
 #include <gamegamebryo.h>

@@ -1,4 +1,4 @@
-#include "fallout3scriptextender.h"
+#include "fallout4scriptextender.h"
 
 
 QString Fallout4ScriptExtender::name() const
