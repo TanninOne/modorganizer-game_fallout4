@@ -3,14 +3,14 @@
 #include <QString>
 #include <QStringList>
 
+Fallout4ScriptExtender::Fallout4ScriptExtender(GameGamebryo const *game) :
+  GamebryoScriptExtender(game)
+{
+}
+
 QString Fallout4ScriptExtender::name() const
 {
   return "f4se";
-}
-
-QString Fallout4ScriptExtender::loaderName() const
-{
-  return name() + "_loader.exe";
 }
 
 QStringList Fallout4ScriptExtender::saveGameAttachmentExtensions() const

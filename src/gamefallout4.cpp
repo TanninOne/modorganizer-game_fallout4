@@ -23,7 +23,7 @@ bool GameFallout4::init(IOrganizer *moInfo)
   if (!GameGamebryo::init(moInfo)) {
     return false;
   }
-  m_ScriptExtender = std::shared_ptr<ScriptExtender>(new Fallout4ScriptExtender());
+  m_ScriptExtender = std::shared_ptr<ScriptExtender>(new Fallout4ScriptExtender(this));
   m_DataArchives = std::shared_ptr<DataArchives>(new Fallout4DataArchives());
   return true;
 }
@@ -57,7 +57,7 @@ QString GameFallout4::myGamesFolderName() const
 QList<ExecutableInfo> GameFallout4::executables() const
 {
   return QList<ExecutableInfo>()
-      << ExecutableInfo("F4SE", findInGameFolder("f4se_loader.exe"))
+      << ExecutableInfo("F4SE", findInGameFolder(m_ScriptExtender->loaderName()))
       << ExecutableInfo("Fallout 4", findInGameFolder(getBinaryName()))
       << ExecutableInfo("Fallout Launcher", findInGameFolder(getLauncherName()))
       << ExecutableInfo("LOOT", getLootPath())
@@ -141,11 +141,6 @@ QStringList GameFallout4::getPrimaryPlugins() const
   return { "fallout4.esm" };
 }
 
-QIcon GameFallout4::gameIcon() const
-{
-  return MOBase::iconForExecutable(gameDirectory().absoluteFilePath("Fallout4.exe"));
-}
-
 std::map<std::type_index, boost::any> GameFallout4::featureList() const
 {
   static std::map<std::type_index, boost::any> result {
@@ -171,6 +166,7 @@ QStringList GameFallout4::getIniFiles() const
 {
     return { "fallout4.ini", "fallout4prefs.ini" };
 }
+
 QStringList GameFallout4::getDLCPlugins() const
 {
   return {};
