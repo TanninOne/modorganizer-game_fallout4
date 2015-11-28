@@ -23,27 +23,34 @@ public:
 
 public: // IPluginGame interface
 
-  virtual QString gameName() const;
-  virtual QList<MOBase::ExecutableInfo> executables();
-  virtual void initializeProfile(const QDir &path, ProfileSettings settings) const;
-  virtual QString savegameExtension() const;
-  virtual QString steamAPPId() const;
-  virtual QStringList getPrimaryPlugins();
+  virtual QString gameName() const override;
+  virtual QList<MOBase::ExecutableInfo> executables() const override;
+  virtual void initializeProfile(const QDir &path, ProfileSettings settings) const override;
+  virtual QString savegameExtension() const override;
+  virtual QString steamAPPId() const override;
+  virtual QStringList getPrimaryPlugins() const override;
   virtual QIcon gameIcon() const override;
-  virtual QStringList gameVariants() const;
+  virtual QStringList gameVariants() const override;
+  virtual QString getGameShortName() const override;
+  virtual QStringList getIniFiles() const override;
+  virtual QStringList getDLCPlugins() const override;
+//what load order mechanism?
+//  virtual LoadOrderMechanism getLoadOrderMechanism() const = 0;
+  virtual int getNexusModOrganizerID() const override;
+  virtual int getNexusGameID() const override;
 
 public: // IPlugin interface
 
-  virtual QString name() const;
-  virtual QString author() const;
-  virtual QString description() const;
-  virtual MOBase::VersionInfo version() const;
-  virtual bool isActive() const;
-  virtual QList<MOBase::PluginSetting> settings() const;
+  virtual QString name() const override;
+  virtual QString author() const override;
+  virtual QString description() const override;
+  virtual MOBase::VersionInfo version() const override;
+  virtual bool isActive() const override;
+  virtual QList<MOBase::PluginSetting> settings() const override;
 
 protected:
 
-  virtual const std::map<std::type_index, boost::any> &featureList() const;
+  virtual std::map<std::type_index, boost::any> featureList() const override;
 
 private:
 

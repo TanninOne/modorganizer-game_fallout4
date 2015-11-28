@@ -1,13 +1,15 @@
 #include "gameFallout4.h"
+
 #include <scopeguard.h>
 #include <pluginsetting.h>
-#include <igameinfo.h>
+#include "iplugingame.h"
 #include <executableinfo.h>
 #include <utility.h>
-#include <memory>
+
 #include <QStandardPaths>
 #include <QDebug>
 
+#include <memory>
 
 using namespace MOBase;
 
@@ -52,13 +54,13 @@ QString GameFallout4::myGamesFolderName() const
   return "Fallout4";
 }
 
-QList<ExecutableInfo> GameFallout4::executables()
+QList<ExecutableInfo> GameFallout4::executables() const
 {
   return QList<ExecutableInfo>()
       << ExecutableInfo("F4SE", findInGameFolder("f4se_loader.exe"))
-      << ExecutableInfo("Fallout 4", findInGameFolder("Fallout4.exe"))
-      << ExecutableInfo("Fallout Launcher", findInGameFolder("Fallout4Launcher.exe"))
-      << ExecutableInfo("LOOT", getLootPath());
+      << ExecutableInfo("Fallout 4", findInGameFolder(getBinaryName()))
+      << ExecutableInfo("Fallout Launcher", findInGameFolder(getLauncherName()))
+      << ExecutableInfo("LOOT", getLootPath())
          ;
 }
 
@@ -134,7 +136,7 @@ QString GameFallout4::steamAPPId() const
   return "377160";
 }
 
-QStringList GameFallout4::getPrimaryPlugins()
+QStringList GameFallout4::getPrimaryPlugins() const
 {
   return { "fallout4.esm" };
 }
@@ -144,7 +146,7 @@ QIcon GameFallout4::gameIcon() const
   return MOBase::iconForExecutable(gameDirectory().absoluteFilePath("Fallout4.exe"));
 }
 
-const std::map<std::type_index, boost::any> &GameFallout4::featureList() const
+std::map<std::type_index, boost::any> GameFallout4::featureList() const
 {
   static std::map<std::type_index, boost::any> result {
     { typeid(ScriptExtender), m_ScriptExtender.get() },
@@ -158,4 +160,31 @@ const std::map<std::type_index, boost::any> &GameFallout4::featureList() const
 QStringList GameFallout4::gameVariants() const
 {
   return { "Regular" };
+}
+
+QString GameFallout4::getGameShortName() const
+{
+  return "Fallout4";
+}
+
+QStringList GameFallout4::getIniFiles() const
+{
+    return { "fallout4.ini", "fallout4prefs.ini" };
+}
+QStringList GameFallout4::getDLCPlugins() const
+{
+  return {};
+}
+
+//what load order mechanism?
+//  virtual LoadOrderMechanism getLoadOrderMechanism() const = 0;
+
+int GameFallout4::getNexusModOrganizerID() const
+{
+  return 0; //...
+}
+
+int GameFallout4::getNexusGameID() const
+{
+  return 1151;
 }
