@@ -1,10 +1,10 @@
-#ifndef FALLOUT3DATAARCHIVES_H
-#define FALLOUT3DATAARCHIVES_H
+#ifndef FALLOUT4DATAARCHIVES_H
+#define FALLOUT4DATAARCHIVES_H
 
+#include "gamebryodataarchives.h"
 
-#include <gamebryodataarchives.h>
-#include <iprofile.h>
-#include <QString>
+namespace MOBase { class IProfile; }
+
 #include <QStringList>
 
 class Fallout4DataArchives : public GamebryoDataArchives
@@ -21,4 +21,4 @@ private:
 
 };
 
-#endif // FALLOUT3DATAARCHIVES_H
+#endif // FALLOUT4DATAARCHIVES_H

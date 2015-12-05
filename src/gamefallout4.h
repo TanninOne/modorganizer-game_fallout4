@@ -2,11 +2,7 @@
 #define GAMEFALLOUT4_H
 
 
-#include "fallout4scriptextender.h"
-#include "fallout4dataarchives.h"
-#include <gamegamebryo.h>
-#include <QFileInfo>
-
+#include "gamegamebryo.h"
 
 class GameFallout4 : public GameGamebryo
 {
@@ -47,10 +43,6 @@ public: // IPlugin interface
   virtual bool isActive() const override;
   virtual QList<MOBase::PluginSetting> settings() const override;
 
-protected:
-
-  virtual std::map<std::type_index, boost::any> featureList() const override;
-
 private:
 
   virtual QString identifyGamePath() const override;
@@ -59,11 +51,6 @@ private:
   QString localAppFolder() const;
   void copyToProfile(const QString &sourcePath, const QDir &destinationDirectory,
                      const QString &sourceFileName, const QString &destinationFileName = QString()) const;
-
-private:
-
-  std::shared_ptr<ScriptExtender> m_ScriptExtender { nullptr };
-  std::shared_ptr<DataArchives> m_DataArchives { nullptr };
 
 };
 

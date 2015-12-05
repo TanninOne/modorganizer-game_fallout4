@@ -1,5 +1,5 @@
-#ifndef FALLOUT3SCRIPTEXTENDER_H
-#define FALLOUT3SCRIPTEXTENDER_H
+#ifndef FALLOUT4SCRIPTEXTENDER_H
+#define FALLOUT4SCRIPTEXTENDER_H
 
 #include "gamebryoscriptextender.h"
 
@@ -14,4 +14,4 @@ public:
 
 };
 
-#endif // FALLOUT3SCRIPTEXTENDER_H
+#endif // FALLOUT4SCRIPTEXTENDER_H

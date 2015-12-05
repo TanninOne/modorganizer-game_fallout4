@@ -1,5 +1,7 @@
 #include "gameFallout4.h"
 
+#include "fallout4dataarchives.h"
+#include "fallout4scriptextender.h"
 #include <scopeguard.h>
 #include <pluginsetting.h>
 #include "iplugingame.h"
@@ -140,17 +142,6 @@ QStringList GameFallout4::getPrimaryPlugins() const
 {
   return { "fallout4.esm" };
 }
-
-std::map<std::type_index, boost::any> GameFallout4::featureList() const
-{
-  static std::map<std::type_index, boost::any> result {
-    { typeid(ScriptExtender), m_ScriptExtender.get() },
-    { typeid(DataArchives), m_DataArchives.get() }
-  };
-
-  return result;
-}
-
 
 QStringList GameFallout4::gameVariants() const
 {

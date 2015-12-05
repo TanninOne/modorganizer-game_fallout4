@@ -41,4 +41,6 @@ LIBS += -ladvapi32 -lole32 -lgameGamebryo
 
 OTHER_FILES += \
     gamefallout4.json\
-    SConscript
+    SConscript \
+    CMakeLists.txt
+
