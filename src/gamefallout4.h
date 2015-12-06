@@ -3,7 +3,7 @@
 
 
 #include "fallout4scriptextender.h"
-#include "fallout4dataarchives.h"
+#include "gamebryolocalsavegames.h"
 #include <gamegamebryo.h>
 #include <QFileInfo>
 
@@ -11,9 +11,7 @@
 class GameFallout4 : public GameGamebryo
 {
   Q_OBJECT
-#if QT_VERSION >= QT_VERSION_CHECK(5,0,0)
   Q_PLUGIN_METADATA(IID "org.tannin.GameFallout4" FILE "gamefallout4.json")
-#endif
 
 public:
 
@@ -50,14 +48,13 @@ private:
   virtual QString identifyGamePath() const override;
   virtual QString myGamesFolderName() const override;
 
-  QString localAppFolder() const;
   void copyToProfile(const QString &sourcePath, const QDir &destinationDirectory,
                      const QString &sourceFileName, const QString &destinationFileName = QString()) const;
 
 private:
 
   std::shared_ptr<ScriptExtender> m_ScriptExtender { nullptr };
-  std::shared_ptr<DataArchives> m_DataArchives { nullptr };
+  std::shared_ptr<LocalSavegames> m_LocalSavegames { nullptr };
 
 };
 

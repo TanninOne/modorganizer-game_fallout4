@@ -3,9 +3,11 @@
 #include <pluginsetting.h>
 #include <igameinfo.h>
 #include <executableinfo.h>
+#include <gamebryolocalsavegames.h>
 #include <utility.h>
 #include <memory>
 #include <QStandardPaths>
+#include <QCoreApplication>
 #include <QDebug>
 
 
@@ -22,7 +24,7 @@ bool GameFallout4::init(IOrganizer *moInfo)
     return false;
   }
   m_ScriptExtender = std::shared_ptr<ScriptExtender>(new Fallout4ScriptExtender());
-  m_DataArchives = std::shared_ptr<DataArchives>(new Fallout4DataArchives());
+  m_LocalSavegames.reset(new GamebryoLocalSavegames(myGamesPath(), "Fallout4.ini"));
   return true;
 }
 
@@ -34,17 +36,6 @@ QString GameFallout4::identifyGamePath() const
 QString GameFallout4::gameName() const
 {
   return "Fallout 4";
-}
-
-QString GameFallout4::localAppFolder() const
-{
-  QString result = getKnownFolderPath(FOLDERID_LocalAppData, false);
-  if (result.isEmpty()) {
-    // fallback: try the registry
-    result = getSpecialPath("Local AppData");
-  }
-
-  return result;
 }
 
 QString GameFallout4::myGamesFolderName() const
@@ -84,7 +75,7 @@ MOBase::VersionInfo GameFallout4::version() const
 
 bool GameFallout4::isActive() const
 {
-  return true;
+  return qApp->property("managed_game").value<IPluginGame*>() == this;
 }
 
 QList<PluginSetting> GameFallout4::settings() const
@@ -148,7 +139,7 @@ const std::map<std::type_index, boost::any> &GameFallout4::featureList() const
 {
   static std::map<std::type_index, boost::any> result {
     { typeid(ScriptExtender), m_ScriptExtender.get() },
-    { typeid(DataArchives), m_DataArchives.get() }
+    { typeid(LocalSavegames), m_LocalSavegames.get() }
   };
 
   return result;
