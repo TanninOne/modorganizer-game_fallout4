@@ -3,7 +3,7 @@ Import('qt_env')
 env = qt_env.Clone()
 
 # Shouldn't this be GAMEFALLOUT3_LIBRARY
-env.AppendUnique(CPPDEFINES = [ 'GAMEFALLOUTNV_LIBRARY' ])
+env.AppendUnique(CPPDEFINES = [ 'GAMEFALLOUT4_LIBRARY' ])
 
 env.RequiresGamebryo()
 
