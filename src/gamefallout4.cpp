@@ -2,6 +2,7 @@
 
 #include "fallout4dataarchives.h"
 #include "fallout4scriptextender.h"
+#include "fallout4savegameinfo.h"
 #include <scopeguard.h>
 #include <pluginsetting.h>
 #include "iplugingame.h"
@@ -30,6 +31,7 @@ bool GameFallout4::init(IOrganizer *moInfo)
   m_ScriptExtender = std::shared_ptr<ScriptExtender>(new Fallout4ScriptExtender(this));
   m_DataArchives = std::shared_ptr<DataArchives>(new Fallout4DataArchives());
   m_LocalSavegames.reset(new GamebryoLocalSavegames(myGamesPath(), "Fallout4.ini"));
+  m_SaveGameInfo = std::shared_ptr<SaveGameInfo>(new Fallout4SaveGameInfo());
   return true;
 }
 
