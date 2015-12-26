@@ -3,21 +3,24 @@
 #include "fallout4dataarchives.h"
 #include "fallout4scriptextender.h"
 #include "fallout4savegameinfo.h"
-#include <scopeguard.h>
+
 #include <pluginsetting.h>
 #include "iplugingame.h"
 #include <executableinfo.h>
-//#include <gamebryolocalsavegames.h>
-#include <utility.h>
+//**#include <gamebryolocalsavegames.h>
+#include "versioninfo.h"
 
-#include <QStandardPaths>
 #include <QCoreApplication>
-#include <QDebug>
+#include <QDir>
+#include <QFileInfo>
+#include <QList>
+#include <QObject>
+#include <QString>
+#include <QStringList>
 
 #include <memory>
 
 using namespace MOBase;
-
 
 GameFallout4::GameFallout4()
 {
@@ -30,25 +33,14 @@ bool GameFallout4::init(IOrganizer *moInfo)
   }
   m_ScriptExtender = std::shared_ptr<ScriptExtender>(new Fallout4ScriptExtender(this));
   m_DataArchives = std::shared_ptr<DataArchives>(new Fallout4DataArchives());
-//  m_LocalSavegames.reset(new GamebryoLocalSavegames(myGamesPath(), "Fallout4.ini"));
+//**  m_LocalSavegames.reset(new GamebryoLocalSavegames(myGamesPath(), "Fallout4.ini"));
   m_SaveGameInfo = std::shared_ptr<SaveGameInfo>(new Fallout4SaveGameInfo(this));
   return true;
-}
-
-QString GameFallout4::identifyGamePath() const
-{
-  return findInRegistry(HKEY_LOCAL_MACHINE, L"Software\\Bethesda Softworks\\Fallout4", L"Installed Path");
 }
 
 QString GameFallout4::gameName() const
 {
   return "Fallout 4";
-}
-
-
-QString GameFallout4::myGamesFolderName() const
-{
-  return "Fallout4";
 }
 
 QList<ExecutableInfo> GameFallout4::executables() const
@@ -89,19 +81,6 @@ bool GameFallout4::isActive() const
 QList<PluginSetting> GameFallout4::settings() const
 {
   return QList<PluginSetting>();
-}
-
-void GameFallout4::copyToProfile(const QString &sourcePath, const QDir &destinationDirectory,
-                               const QString &sourceFileName, const QString &destinationFileName) const
-{
-  QString filePath = destinationDirectory.absoluteFilePath(destinationFileName.isEmpty() ? sourceFileName
-                                                                                         : destinationFileName);
-  if (!QFileInfo(filePath).exists()) {
-    if (!shellCopy(sourcePath + "/" + sourceFileName, filePath)) {
-      // if copy file fails, create the file empty
-      QFile(filePath).open(QIODevice::WriteOnly);
-    }
-  }
 }
 
 void GameFallout4::initializeProfile(const QDir &path, ProfileSettings settings) const

@@ -3,6 +3,8 @@
 
 #include "gamebryoscriptextender.h"
 
+class GameGamebryo;
+
 class Fallout4ScriptExtender : public GamebryoScriptExtender
 {
 public:
