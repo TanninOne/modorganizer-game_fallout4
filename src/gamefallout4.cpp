@@ -7,7 +7,7 @@
 #include <pluginsetting.h>
 #include "iplugingame.h"
 #include <executableinfo.h>
-#include <gamebryolocalsavegames.h>
+//#include <gamebryolocalsavegames.h>
 #include <utility.h>
 
 #include <QStandardPaths>
@@ -30,8 +30,8 @@ bool GameFallout4::init(IOrganizer *moInfo)
   }
   m_ScriptExtender = std::shared_ptr<ScriptExtender>(new Fallout4ScriptExtender(this));
   m_DataArchives = std::shared_ptr<DataArchives>(new Fallout4DataArchives());
-  m_LocalSavegames.reset(new GamebryoLocalSavegames(myGamesPath(), "Fallout4.ini"));
-  m_SaveGameInfo = std::shared_ptr<SaveGameInfo>(new Fallout4SaveGameInfo());
+//  m_LocalSavegames.reset(new GamebryoLocalSavegames(myGamesPath(), "Fallout4.ini"));
+  m_SaveGameInfo = std::shared_ptr<SaveGameInfo>(new Fallout4SaveGameInfo(this));
   return true;
 }
 
@@ -44,6 +44,7 @@ QString GameFallout4::gameName() const
 {
   return "Fallout 4";
 }
+
 
 QString GameFallout4::myGamesFolderName() const
 {

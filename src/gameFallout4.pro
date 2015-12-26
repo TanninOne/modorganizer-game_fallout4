@@ -16,12 +16,16 @@ DEFINES += GAMEFALLOUT4_LIBRARY
 SOURCES += gamefallout4.cpp \
     fallout4bsainvalidation.cpp \
     fallout4scriptextender.cpp \
-    fallout4dataarchives.cpp
+    fallout4dataarchives.cpp \
+    fallout4savegame.cpp \
+    fallout4savegameinfo.cpp
 
 HEADERS += gamefallout4.h \
     fallout4bsainvalidation.h \
     fallout4scriptextender.h \
-    fallout4dataarchives.h
+    fallout4dataarchives.h \
+    fallout4savegame.h \
+    fallout4savegameinfo.h
 
 CONFIG(debug, debug|release) {
   LIBS += -L"$${OUT_PWD}/../gameGamebryo/debug"
