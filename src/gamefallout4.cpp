@@ -2,13 +2,16 @@
 
 #include "fallout4dataarchives.h"
 #include "fallout4scriptextender.h"
+#include "fallout4savegameinfo.h"
 #include <scopeguard.h>
 #include <pluginsetting.h>
 #include "iplugingame.h"
 #include <executableinfo.h>
+#include <gamebryolocalsavegames.h>
 #include <utility.h>
 
 #include <QStandardPaths>
+#include <QCoreApplication>
 #include <QDebug>
 
 #include <memory>
@@ -27,6 +30,8 @@ bool GameFallout4::init(IOrganizer *moInfo)
   }
   m_ScriptExtender = std::shared_ptr<ScriptExtender>(new Fallout4ScriptExtender(this));
   m_DataArchives = std::shared_ptr<DataArchives>(new Fallout4DataArchives());
+  m_LocalSavegames.reset(new GamebryoLocalSavegames(myGamesPath(), "Fallout4.ini"));
+  m_SaveGameInfo = std::shared_ptr<SaveGameInfo>(new Fallout4SaveGameInfo());
   return true;
 }
 
@@ -40,17 +45,6 @@ QString GameFallout4::gameName() const
   return "Fallout 4";
 }
 
-QString GameFallout4::localAppFolder() const
-{
-  QString result = getKnownFolderPath(FOLDERID_LocalAppData, false);
-  if (result.isEmpty()) {
-    // fallback: try the registry
-    result = getSpecialPath("Local AppData");
-  }
-
-  return result;
-}
-
 QString GameFallout4::myGamesFolderName() const
 {
   return "Fallout4";
@@ -60,7 +54,7 @@ QList<ExecutableInfo> GameFallout4::executables() const
 {
   return QList<ExecutableInfo>()
       << ExecutableInfo("F4SE", findInGameFolder(m_ScriptExtender->loaderName()))
-      << ExecutableInfo("Fallout 4", findInGameFolder(getBinaryName()))
+      << ExecutableInfo("Fallout 4", findInGameFolder(binaryName()))
       << ExecutableInfo("Fallout Launcher", findInGameFolder(getLauncherName()))
       << ExecutableInfo("LOOT", getLootPath())
          ;
@@ -88,7 +82,7 @@ MOBase::VersionInfo GameFallout4::version() const
 
 bool GameFallout4::isActive() const
 {
-  return true;
+  return qApp->property("managed_game").value<IPluginGame*>() == this;
 }
 
 QList<PluginSetting> GameFallout4::settings() const
@@ -138,7 +132,7 @@ QString GameFallout4::steamAPPId() const
   return "377160";
 }
 
-QStringList GameFallout4::getPrimaryPlugins() const
+QStringList GameFallout4::primaryPlugins() const
 {
   return { "fallout4.esm" };
 }
@@ -148,17 +142,17 @@ QStringList GameFallout4::gameVariants() const
   return { "Regular" };
 }
 
-QString GameFallout4::getGameShortName() const
+QString GameFallout4::gameShortName() const
 {
   return "Fallout4";
 }
 
-QStringList GameFallout4::getIniFiles() const
+QStringList GameFallout4::iniFiles() const
 {
     return { "fallout4.ini", "fallout4prefs.ini" };
 }
 
-QStringList GameFallout4::getDLCPlugins() const
+QStringList GameFallout4::DLCPlugins() const
 {
   return {};
 }
@@ -166,12 +160,12 @@ QStringList GameFallout4::getDLCPlugins() const
 //what load order mechanism?
 //  virtual LoadOrderMechanism getLoadOrderMechanism() const = 0;
 
-int GameFallout4::getNexusModOrganizerID() const
+int GameFallout4::nexusModOrganizerID() const
 {
   return 0; //...
 }
 
-int GameFallout4::getNexusGameID() const
+int GameFallout4::nexusGameID() const
 {
   return 1151;
 }
