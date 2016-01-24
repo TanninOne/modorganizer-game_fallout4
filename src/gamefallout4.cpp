@@ -47,7 +47,7 @@ QList<ExecutableInfo> GameFallout4::executables() const
 {
   return QList<ExecutableInfo>()
       << ExecutableInfo("F4SE", findInGameFolder(m_ScriptExtender->loaderName()))
-      << ExecutableInfo("Fallout 4", findInGameFolder(getBinaryName()))
+      << ExecutableInfo("Fallout 4", findInGameFolder(binaryName()))
       << ExecutableInfo("Fallout Launcher", findInGameFolder(getLauncherName()))
       << ExecutableInfo("LOOT", getLootPath())
          ;
@@ -112,7 +112,7 @@ QString GameFallout4::steamAPPId() const
   return "377160";
 }
 
-QStringList GameFallout4::getPrimaryPlugins() const
+QStringList GameFallout4::primaryPlugins() const
 {
   return { "fallout4.esm" };
 }
@@ -122,17 +122,17 @@ QStringList GameFallout4::gameVariants() const
   return { "Regular" };
 }
 
-QString GameFallout4::getGameShortName() const
+QString GameFallout4::gameShortName() const
 {
   return "Fallout4";
 }
 
-QStringList GameFallout4::getIniFiles() const
+QStringList GameFallout4::iniFiles() const
 {
     return { "fallout4.ini", "fallout4prefs.ini" };
 }
 
-QStringList GameFallout4::getDLCPlugins() const
+QStringList GameFallout4::DLCPlugins() const
 {
   return {};
 }
@@ -140,12 +140,12 @@ QStringList GameFallout4::getDLCPlugins() const
 //what load order mechanism?
 //  virtual LoadOrderMechanism getLoadOrderMechanism() const = 0;
 
-int GameFallout4::getNexusModOrganizerID() const
+int GameFallout4::nexusModOrganizerID() const
 {
   return 0; //...
 }
 
-int GameFallout4::getNexusGameID() const
+int GameFallout4::nexusGameID() const
 {
   return 1151;
 }

@@ -25,15 +25,15 @@ public: // IPluginGame interface
   virtual void initializeProfile(const QDir &path, ProfileSettings settings) const override;
   virtual QString savegameExtension() const override;
   virtual QString steamAPPId() const override;
-  virtual QStringList getPrimaryPlugins() const override;
+  virtual QStringList primaryPlugins() const override;
   virtual QStringList gameVariants() const override;
-  virtual QString getGameShortName() const override;
-  virtual QStringList getIniFiles() const override;
-  virtual QStringList getDLCPlugins() const override;
+  virtual QString gameShortName() const override;
+  virtual QStringList iniFiles() const override;
+  virtual QStringList DLCPlugins() const override;
 //what load order mechanism?
 //  virtual LoadOrderMechanism getLoadOrderMechanism() const = 0;
-  virtual int getNexusModOrganizerID() const override;
-  virtual int getNexusGameID() const override;
+  virtual int nexusModOrganizerID() const override;
+  virtual int nexusGameID() const override;
 
 public: // IPlugin interface
 
