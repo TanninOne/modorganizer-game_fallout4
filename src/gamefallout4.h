@@ -8,6 +8,7 @@
 class GameFallout4 : public GameGamebryo
 {
   Q_OBJECT
+
   Q_PLUGIN_METADATA(IID "org.tannin.GameFallout4" FILE "gamefallout4.json")
 
 public:
