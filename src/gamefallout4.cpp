@@ -3,11 +3,13 @@
 #include "fallout4dataarchives.h"
 #include "fallout4scriptextender.h"
 #include "fallout4savegameinfo.h"
+#include "fallout4gameplugins.h"
 
 #include <pluginsetting.h>
 #include "iplugingame.h"
 #include <executableinfo.h>
 #include <gamebryolocalsavegames.h>
+#include <gamebryogameplugins.h>
 #include "versioninfo.h"
 
 #include <QCoreApplication>
@@ -31,10 +33,13 @@ bool GameFallout4::init(IOrganizer *moInfo)
   if (!GameGamebryo::init(moInfo)) {
     return false;
   }
+
   m_ScriptExtender = std::shared_ptr<ScriptExtender>(new Fallout4ScriptExtender(this));
   m_DataArchives = std::shared_ptr<DataArchives>(new Fallout4DataArchives());
   m_LocalSavegames.reset(new GamebryoLocalSavegames(myGamesPath(), "Fallout4.ini"));
   m_SaveGameInfo = std::shared_ptr<SaveGameInfo>(new Fallout4SaveGameInfo(this));
+  m_GamePlugins = std::shared_ptr<GamePlugins>(new Fallout4GamePlugins(moInfo));
+
   return true;
 }
 
@@ -71,7 +76,7 @@ QString GameFallout4::description() const
 
 MOBase::VersionInfo GameFallout4::version() const
 {
-  return VersionInfo(0, 2, 0, VersionInfo::RELEASE_BETA);
+  return VersionInfo(0, 3, 0, VersionInfo::RELEASE_BETA);
 }
 
 bool GameFallout4::isActive() const
@@ -115,7 +120,7 @@ QString GameFallout4::steamAPPId() const
 
 QStringList GameFallout4::primaryPlugins() const
 {
-  return { "fallout4.esm" };
+  return { "fallout4.esm", "dlcrobot.esm", "dlcworkshop01.esm" };
 }
 
 QStringList GameFallout4::gameVariants() const
@@ -138,8 +143,10 @@ QStringList GameFallout4::DLCPlugins() const
   return {};
 }
 
-//what load order mechanism?
-//  virtual LoadOrderMechanism getLoadOrderMechanism() const = 0;
+IPluginGame::LoadOrderMechanism GameFallout4::loadOrderMechanism() const
+{
+  return IPluginGame::LoadOrderMechanism::PluginsTxt;
+}
 
 int GameFallout4::nexusModOrganizerID() const
 {

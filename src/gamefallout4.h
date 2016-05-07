@@ -31,8 +31,7 @@ public: // IPluginGame interface
   virtual QString gameShortName() const override;
   virtual QStringList iniFiles() const override;
   virtual QStringList DLCPlugins() const override;
-//what load order mechanism?
-//  virtual LoadOrderMechanism getLoadOrderMechanism() const = 0;
+  virtual LoadOrderMechanism loadOrderMechanism() const override;
   virtual int nexusModOrganizerID() const override;
   virtual int nexusGameID() const override;
 
