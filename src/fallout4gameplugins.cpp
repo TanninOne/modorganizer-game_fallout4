@@ -82,6 +82,7 @@ bool Fallout4GamePlugins::readPluginList(MOBase::IPluginList *pluginList,
 
   QFile file(filePath);
   if (!file.open(QIODevice::ReadOnly)) {
+    qWarning("%s not found", qPrintable(filePath));
     return false;
   }
   ON_BLOCK_EXIT([&]() { file.close(); });
@@ -89,6 +90,7 @@ bool Fallout4GamePlugins::readPluginList(MOBase::IPluginList *pluginList,
   if (file.size() == 0) {
     // MO stores at least a header in the file. if it's completely empty the
     // file is broken
+    qWarning("%s empty", qPrintable(filePath));
     return false;
   }
 
