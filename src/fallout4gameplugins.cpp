@@ -17,7 +17,7 @@ using MOBase::SafeWriteFile;
 using MOBase::reportError;
 
 static const std::set<QString> OFFICIAL_FILES{"fallout4.esm", "dlcrobot.esm",
-                                              "dlcworkshop01.esm"};
+                                              "dlcworkshop01.esm", "dlccoast.esm"};
 
 Fallout4GamePlugins::Fallout4GamePlugins(IOrganizer *organizer)
   : GamebryoGamePlugins(organizer)
