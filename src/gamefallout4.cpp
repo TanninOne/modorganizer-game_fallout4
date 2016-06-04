@@ -119,9 +119,8 @@ QString GameFallout4::steamAPPId() const
   return "377160";
 }
 
-QStringList GameFallout4::primaryPlugins() const
-{
-  return { "fallout4.esm", "dlcrobot.esm", "dlcworkshop01.esm" };
+QStringList GameFallout4::primaryPlugins() const {
+  return {"fallout4.esm", "dlcrobot.esm", "dlcworkshop01.esm", "dlccoast.esm"};
 }
 
 QStringList GameFallout4::gameVariants() const
