@@ -77,7 +77,9 @@ bool Fallout4GamePlugins::readPluginList(MOBase::IPluginList *pluginList,
   QStringList plugins;
 
   for (const QString &pluginName : OFFICIAL_FILES) {
-    pluginList->setState(pluginName, IPluginList::STATE_ACTIVE);
+    if (pluginList->state(pluginName) != IPluginList::STATE_MISSING) {
+      pluginList->setState(pluginName, IPluginList::STATE_ACTIVE);
+    }
   }
 
   QFile file(filePath);
