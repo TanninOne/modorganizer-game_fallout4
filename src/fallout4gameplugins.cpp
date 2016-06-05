@@ -74,7 +74,7 @@ bool Fallout4GamePlugins::readPluginList(MOBase::IPluginList *pluginList,
                                          const QString &filePath,
                                          bool useLoadOrder)
 {
-  QStringList plugins;
+  QStringList plugins = pluginList->pluginNames();
 
   for (const QString &pluginName : OFFICIAL_FILES) {
     if (pluginList->state(pluginName) != IPluginList::STATE_MISSING) {
