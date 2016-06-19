@@ -4,6 +4,7 @@
 #include "fallout4scriptextender.h"
 #include "fallout4savegameinfo.h"
 #include "fallout4gameplugins.h"
+#include "fallout4unmanagedmods.h"
 
 #include <pluginsetting.h>
 #include "iplugingame.h"
@@ -34,11 +35,12 @@ bool GameFallout4::init(IOrganizer *moInfo)
     return false;
   }
 
-  m_ScriptExtender = std::shared_ptr<ScriptExtender>(new Fallout4ScriptExtender(this));
-  m_DataArchives = std::shared_ptr<DataArchives>(new Fallout4DataArchives());
-  m_LocalSavegames.reset(new GamebryoLocalSavegames(myGamesPath(), "Fallout4.ini"));
-  m_SaveGameInfo = std::shared_ptr<SaveGameInfo>(new Fallout4SaveGameInfo(this));
-  m_GamePlugins = std::shared_ptr<GamePlugins>(new Fallout4GamePlugins(moInfo));
+  registerFeature<ScriptExtender>(new Fallout4ScriptExtender(this));
+  registerFeature<DataArchives>(new Fallout4DataArchives());
+  registerFeature<LocalSavegames>(new GamebryoLocalSavegames(myGamesPath(), "Fallout4.ini"));
+  registerFeature<SaveGameInfo>(new Fallout4SaveGameInfo(this));
+  registerFeature<GamePlugins>(new Fallout4GamePlugins(moInfo));
+  registerFeature<UnmanagedMods>(new Fallout4UnmangedMods(this));
 
   return true;
 }
@@ -51,7 +53,7 @@ QString GameFallout4::gameName() const
 QList<ExecutableInfo> GameFallout4::executables() const
 {
   return QList<ExecutableInfo>()
-      << ExecutableInfo("F4SE", findInGameFolder(m_ScriptExtender->loaderName()))
+      << ExecutableInfo("F4SE", findInGameFolder(feature<ScriptExtender>()->loaderName()))
       << ExecutableInfo("Fallout 4", findInGameFolder(binaryName()))
       << ExecutableInfo("Fallout Launcher", findInGameFolder(getLauncherName()))
       << ExecutableInfo("Creation Kit", findInGameFolder("CreationKit.exe"))
@@ -120,7 +122,7 @@ QString GameFallout4::steamAPPId() const
 }
 
 QStringList GameFallout4::primaryPlugins() const {
-  return {"fallout4.esm", "dlcrobot.esm", "dlcworkshop01.esm", "dlccoast.esm"};
+  return {"fallout4.esm"};
 }
 
 QStringList GameFallout4::gameVariants() const
@@ -140,7 +142,7 @@ QStringList GameFallout4::iniFiles() const
 
 QStringList GameFallout4::DLCPlugins() const
 {
-  return {};
+  return {"dlcrobot.esm", "dlcworkshop01.esm", "dlccoast.esm"};
 }
 
 IPluginGame::LoadOrderMechanism GameFallout4::loadOrderMechanism() const
