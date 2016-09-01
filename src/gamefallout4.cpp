@@ -142,7 +142,8 @@ QStringList GameFallout4::iniFiles() const
 
 QStringList GameFallout4::DLCPlugins() const
 {
-  return {"dlcrobot.esm", "dlcworkshop01.esm", "dlccoast.esm"};
+  return {"dlcrobot.esm", "dlcworkshop01.esm", "dlccoast.esm",
+          "dlcworkshop02.esm", "dlcworkshop03.esm", "dlcnukaworld.esm"};
 }
 
 IPluginGame::LoadOrderMechanism GameFallout4::loadOrderMechanism() const

@@ -28,6 +28,12 @@ QString Fallout4UnmangedMods::displayName(const QString &modName) const
     return "Wasteland Workshop";
   } else if (modName.compare("dlccoast", Qt::CaseInsensitive) == 0) {
     return "Far Harbor";
+  } else if (modName.compare("dlcworkshop02", Qt::CaseInsensitive) == 0) {
+    return "Contraptions Workshop";
+  } else if (modName.compare("dlcworkshop03", Qt::CaseInsensitive) == 0) {
+    return "Vault-Tec Workshop";
+  } else if (modName.compare("dlcnukaworld", Qt::CaseInsensitive) == 0) {
+    return "Nuka-World";
   } else {
     return modName;
   }
