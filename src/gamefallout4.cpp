@@ -135,6 +135,11 @@ QString GameFallout4::gameShortName() const
   return "Fallout4";
 }
 
+QString GameFallout4::gameNexusName() const
+{
+  return "Fallout4";
+}
+
 QStringList GameFallout4::iniFiles() const
 {
     return { "fallout4.ini", "fallout4prefs.ini" };
